@@ -12,6 +12,7 @@
         <module>fmv-core</module>
         <module>fmc-core-impl</module>
         <module>fmv-models</module>
+        <module>fmv-server</module>
     </modules>
 
     <properties>

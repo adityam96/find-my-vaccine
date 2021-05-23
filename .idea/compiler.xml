@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="fmv-server" />
+        <module name="fmc-core-impl" />
         <module name="fmv-models" />
         <module name="fmv-core" />
-        <module name="fmc-core-impl" />
       </profile>
     </annotationProcessing>
   </component>

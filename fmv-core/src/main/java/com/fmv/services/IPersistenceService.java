@@ -1,6 +1,6 @@
 package com.fmv.services;
 
-import com.fmv.filters.IEntity;
+import com.fmv.entities.IEntity;
 
 import java.util.Optional;
 

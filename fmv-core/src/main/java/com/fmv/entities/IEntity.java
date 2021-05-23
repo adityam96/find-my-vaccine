@@ -1,4 +1,4 @@
-package com.fmv.filters;
+package com.fmv.entities;
 
 
 import java.sql.Date;

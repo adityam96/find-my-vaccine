@@ -4,7 +4,8 @@ import com.fmv.Pair;
 import com.fmv.TrackingState;
 import com.fmv.customer.CustomerRequest;
 import com.fmv.customer.CustomerResponse;
-import com.fmv.filters.ICustomer;
+import com.fmv.entities.ICustomer;
+import com.fmv.helper.CustomerMapper;
 import com.fmv.services.ICustomerService;
 import com.fmv.services.IPersistenceService;
 import com.google.common.base.Preconditions;
@@ -13,10 +14,12 @@ import com.google.inject.Inject;
 public class CustomerService implements ICustomerService {
 
     private final IPersistenceService persistenceService;
+    private final CustomerMapper customerMapper;
 
     @Inject
-    public CustomerService(IPersistenceService persistenceService) {
+    public CustomerService(IPersistenceService persistenceService, CustomerMapper customerMapper) {
         this.persistenceService = persistenceService;
+        this.customerMapper = customerMapper;
     }
 
     @Override

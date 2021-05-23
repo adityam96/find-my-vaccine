@@ -1,10 +1,12 @@
-package com.fmv.filters;
+package com.fmv.entities;
 
 import com.fmv.TrackingState;
 
 public interface ICustomer extends IEntity {
 
     String getExternalId();
+
+    String getName();
 
     String getPhoneNumber();
 
