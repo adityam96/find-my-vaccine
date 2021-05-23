@@ -1,0 +1,13 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 6900
+      idleTimeout: 30 seconds
+      acceptorThreads: 20
+      selectorThreads: 40
+  adminConnectors:
+    - type: http
+      port: 6901
+      idleTimeout: 30 seconds
+      acceptorThreads: 1
+      selectorThreads: 2
