@@ -1,7 +1,5 @@
 package com.fmv.entities;
 
-import com.fmv.TrackingState;
-
 public interface ICustomer extends IEntity {
 
     String getExternalId();
@@ -10,12 +8,14 @@ public interface ICustomer extends IEntity {
 
     String getPhoneNumber();
 
-    TrackingState getTrackingState();
+    String getTrackingState();
 
     void setExternalId(String externalId);
 
+    void setName(String name);
+
     void setPhoneNumber(String phoneNumber);
 
-    void setTrackingState(TrackingState trackingState);
+    void setTrackingState(String trackingState);
 
 }

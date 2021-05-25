@@ -7,7 +7,7 @@ import com.fmv.tracking.addTracking.AddTrackingResponse;
 public class TrackingService implements ITrackingService {
 
     @Override
-    public Object getTrackingPinCode(String customerId) {
+    public Object getTrackingState(String customerId) {
         return null;
     }
 

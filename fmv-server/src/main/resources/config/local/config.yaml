@@ -11,3 +11,30 @@ server:
       idleTimeout: 30 seconds
       acceptorThreads: 1
       selectorThreads: 2
+
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: root
+  password: LocalSQL
+
+  url: jdbc:mysql://localhost:3306/fmv_db
+
+  maxWaitForConnection: 1s
+
+  validationQuery: "SELECT 1"
+
+  minSize: 8
+
+  maxSize: 32
+  properties:
+    charSet: UTF-8
+    hibernate.show_sql: true
+    hibernate.hbm2ddl.auto: create
+    hibernate.session.events.log: false
+    jadira.usertype.autoRegitsrerUserTypes: true
+    jadira.usertype.databaseZone: jvm
+    jadira.usertype.javaZone: jvm
+
+  checkConnectionWhileIdle: false
+  maxConnectionAge: 10s
+  checkConnectionOnBorrow: true

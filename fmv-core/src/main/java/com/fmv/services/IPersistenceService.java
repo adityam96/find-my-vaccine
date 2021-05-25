@@ -10,5 +10,5 @@ public interface IPersistenceService extends IFmvService {
 
     <T extends IEntity> void persistEntity(Class<T> klass, T entity, String user);
 
-    <T extends IEntity> Optional<T> findEntity(Class<T> klass, T findObject);
+    <T extends IEntity> Optional<T> findEntity(Class<T> klass, String externalId);
 }

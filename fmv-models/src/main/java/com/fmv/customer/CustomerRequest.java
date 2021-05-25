@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class CustomerRequest implements IRequest {
 
-    private String customerName;
+    private String name;
     private String phoneNumber;
 
 }

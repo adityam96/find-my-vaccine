@@ -33,7 +33,7 @@ public class CoreService implements ICoreService {
     }
 
     @Override
-    public Object getByPhoneNumber(String phoneNumber) {
+    public CustomerResponse getByPhoneNumber(String phoneNumber) {
         return customerService.getByPhoneNumber(phoneNumber);
     }
 
@@ -54,7 +54,7 @@ public class CoreService implements ICoreService {
 
     @Override
     public Object getTrackingState(String customerId) {
-        return trackingService.getTrackingPinCode(customerId);
+        return trackingService.getTrackingState(customerId);
     }
 
     @Override

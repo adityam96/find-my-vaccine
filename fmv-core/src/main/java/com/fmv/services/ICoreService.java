@@ -10,7 +10,7 @@ import com.fmv.tracking.addTracking.AddTrackingResponse;
 public interface ICoreService extends IFmvService {
     CustomerResponse registerCustomer(CustomerRequest customerRequest);
 
-    Object getByPhoneNumber(String phoneNumber);
+    CustomerResponse getByPhoneNumber(String phoneNumber);
 
     AddTrackingResponse addTracking(AddTrackingRequest addTrackingRequest);
 

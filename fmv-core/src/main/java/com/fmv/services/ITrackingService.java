@@ -6,7 +6,7 @@ import com.fmv.tracking.addTracking.AddTrackingResponse;
 public interface ITrackingService extends IFmvService {
 
 
-    Object getTrackingPinCode(String customerId);
+    Object getTrackingState(String customerId);
 
     Object removeTrackingPinCode(String customerId);
 

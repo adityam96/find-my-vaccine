@@ -7,9 +7,8 @@ import lombok.Data;
 public class CustomerResponse implements IResponse {
 
     private String customerId;
-    private String customerName;
+    private String name;
     private String phoneNumber;
-    private String message;
-    private Boolean isRegistered;
+    private String trackingState;
 
 }

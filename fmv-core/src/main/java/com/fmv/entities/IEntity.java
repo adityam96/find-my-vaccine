@@ -21,4 +21,6 @@ public interface IEntity {
 
     void setLastUpdatedByUser(String user);
 
+    String getPrefix();
+
 }

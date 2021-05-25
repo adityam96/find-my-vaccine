@@ -6,11 +6,10 @@ import com.fmv.customer.CustomerRequest;
 import com.fmv.services.ICoreService;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.dropwizard.hibernate.UnitOfWork;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Singleton
@@ -28,7 +27,8 @@ public class CustomerResource {
     @Path("/customer/{phoneNumber}")
     @ExceptionMetered
     @Timed
-    public Response getByPhoneNumber(@QueryParam("phoneNumber") String phoneNumber) {
+    @UnitOfWork
+    public Response getByPhoneNumber(@PathParam("phoneNumber") String phoneNumber) {
         return Response.ok(coreService.getByPhoneNumber(phoneNumber)).build();
     }
 
@@ -36,6 +36,8 @@ public class CustomerResource {
     @Path("/customer")
     @ExceptionMetered
     @Timed
+    @UnitOfWork
+    @Produces(MediaType.APPLICATION_JSON)
     public Response register(CustomerRequest customerRequest) {
         return Response.ok(coreService.registerCustomer(customerRequest)).build();
     }
