@@ -28,6 +28,7 @@ public class CustomerResource {
     @ExceptionMetered
     @Timed
     @UnitOfWork
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getByPhoneNumber(@PathParam("phoneNumber") String phoneNumber) {
         return Response.ok(coreService.getByPhoneNumber(phoneNumber)).build();
     }

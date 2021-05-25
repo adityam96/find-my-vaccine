@@ -1,66 +1,62 @@
 package com.fmv.dao.mysql;
 
 import com.fmv.dao.DaoException;
+import com.fmv.dao.IGenericDao;
 import com.fmv.entities.FmvEntity;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.dropwizard.hibernate.AbstractDAO;
 import io.dropwizard.hibernate.HibernateBundle;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Slf4j
 @Singleton
-public class GenericDao extends AbstractDAO<FmvEntity> {
+public class GenericDao implements IGenericDao {
+
+    private final SessionFactory sessionFactory;
 
     @Inject
     public GenericDao(HibernateBundle bundle) {
-        super(bundle.getSessionFactory());
+        this.sessionFactory = bundle.getSessionFactory();
     }
 
-    public <E extends FmvEntity> E createEntity(Class<E> entityClass) throws DaoException {
-        try {
-            E entity = entityClass.newInstance();
-            setExternalId(entity);
-            return entity;
-        } catch (Exception e) {
-            throw new DaoException(500, "Unable to create entity");
-        }
+    private Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
     }
 
-    public <E extends FmvEntity> E persistEntity(E entity) throws Exception {
+    @Override
+    public <E extends FmvEntity> void persistEntity(E entity) {
         try {
-            persist(entity);
+            Session session = getCurrentSession();
+            session.persist(entity);
         } catch (Exception e) {
             log.error("Unable to persist entity", e);
             throw new DaoException(500, "Unable to persist entity");
         }
-        return entity;
     }
 
-    public <E extends FmvEntity> Optional<E> findEntity(Class<E> entityClass, String externalId) throws Exception {
+    @Override
+    public <E extends FmvEntity> Optional<E> findEntityByExternalId(Class<E> klass, String externalId) {
         try {
-            return Optional.ofNullable((E) get(externalId));
+            return Optional.ofNullable((E) getCurrentSession().createQuery("SELECT entity FROM " + klass.getSimpleName() + " entity WHERE externalId = :externalId").setParameter("externalId", externalId).getSingleResult());
         } catch (Exception e) {
-            throw new DaoException(500, "Unable to find entity");
+            log.error("Unable to persist entity", e);
+            return Optional.empty();
         }
     }
 
+    @Override
     public <E extends FmvEntity> List<E> list(Class<E> entityClass) {
         try {
-            Session em = super.currentSession();
+            Session em = getCurrentSession();
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<E> cq = cb.createQuery(entityClass);
             Root<E> rootEntry = cq.from(entityClass);
@@ -72,17 +68,4 @@ public class GenericDao extends AbstractDAO<FmvEntity> {
         }
     }
 
-    private <E extends FmvEntity> void setExternalId(E entity) {
-        LocalDateTime dateTime = LocalDateTime.now();
-        Integer randomNumber = new Random().nextInt(100000);
-        entity.setExternalId(entity.getPrefix()
-                + dateTime.format(DateTimeFormatter.ofPattern("yyMMddHHmmssSS"))
-                + String.format("%06d", randomNumber)
-        );
-    }
-
-
-    public Date getCurrentDate() {
-        return Date.valueOf(LocalDate.now());
-    }
 }
